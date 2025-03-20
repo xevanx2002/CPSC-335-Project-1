@@ -1,20 +1,13 @@
 # Ekaterina Miakotina and Evan Wenzel
 
-def new_graph(edges):
-    graph = {} # created a new dictionary called graph tha will be represented as an adjacency list
-    # use for-loop to iterate through all edges in edges
+def create_adj_list(all_nodes, edges):
+    """This function creates an adjacency list from edges"""
+    # create a dictionary called adj_list that contains empty list as a value
+    adj_list = {i: [] for i in range(all_nodes)}
+    # loop over each directed edge
     for x, y in edges:
-        # if x, the beginning of an edge, is not a key in a graph
-        if x not in graph:
-            graph[x] = [] # initialize it to an empty list
-            graph[x].append(y) # append y to x as an adjacency list bc edge is x->y
-
-        # checking if y exists
-        if y not in graph:
-            graph[y] = []
-
-    # returning a dictionary called graph
-    return graph
+        adj_list[x].append(y) # append y to x in adjacency list
+    return adj_list # return completed adjacency list
 
 def cycle_detection(graph, vertex, visited, dfs_stack):
     """This function uses DFS to detect if a cycle exists in a directed graph"""
@@ -37,4 +30,30 @@ def cycle_detection(graph, vertex, visited, dfs_stack):
 
         # in case the cycle was not found - we return false
         return False
-    
+
+def is_cycle (all_nodes, edges):
+    """This function checks if the cycle exists"""
+
+    adjacency_list = create_adj_list(all_nodes, edges) #calling a helper function to create an adjacency list
+
+    curr_stack = set() # empty set that will track current nodes
+    visited = set() # empty set to check visited nodes
+
+    # loop over every single vertex
+    for vertex in range(all_nodes):
+        # check if we visited a vertex or no
+        if vertex not in visited:
+            # if no - call for a helper function to see if the cycle exists
+            if cycle_detection(adjacency_list, vertex, visited, curr_stack):
+                return "Loop detected"
+            
+    return "No loop detected" # if the cycle was not detected - print no loop detecteds
+
+def main():
+    all_nodes_input = int(input("Input: "))
+    coordinates = input().strip()
+
+    result = is_cycle(all_nodes_input, coordinates)
+
+    print ("Output: ", result)
+

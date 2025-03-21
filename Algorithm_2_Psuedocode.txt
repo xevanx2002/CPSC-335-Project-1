@@ -1,0 +1,29 @@
+Algorithm 2 Pseudocode with Step Count included
+
+function algorithm() {
+	int distance_array[n];(1)
+	int fuel_array[n]; (1)
+	int mpg; (1)
+	int current_gas = 0; (1) 
+	int starting_city = 0; (1)
+	
+	for(i=0 to distance_array) { (1 + n where n = the size of the array)
+		current_gas = current_gas - distance_array[i]; (1)
+		current_gas = current_gas + (fuel_array[i] * mpg); (1)
+		
+		if(current_gas < 0 AND i != (distance_array.size() - 1)) { (1)
+			starting_city = i + 1; (1)
+			current_gas = 0; (1)
+		};
+	};
+	return starting_city; (1)
+};
+
+With all the step counts included within the algorithm, these equate to 
+(1 + 1 + 1 + 1 + 1 + 1 + n(1 + 1 + 1 + 1 + 1)
+(6 + n(5)) = (6 + n) = O(n)
+
+By breaking down the step count of the algorithm, the overall time efficiency of the algorithm is O(n)
+or linear time as the size of the array is the determining factor of the length of calculation time.
+For space efficiency, there are 2 arrays of the same size along side 3 integers being created. With
+the 2 arrays being linear in space causing the space efficiency to be O(2n) or O(n) being linear.

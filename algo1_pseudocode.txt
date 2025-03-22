@@ -1,0 +1,50 @@
+function create_adj_list(all_nodes, edges):
+   create adj_list as dictionary {i: for i in range(all_nodes)}
+
+   for x, y in edges:
+      append y to adj_list[x]
+   end for
+
+   return adj_list
+end function
+
+function cycle_detection(adj_list, vertex, visited, curr_dfs_stack):
+    add vertex to visited
+    add vertex to curr_dfs_stack
+
+    for other_vertex in adj_list[vertex]:
+        if other_vertex not in visited:
+            if cycle_detection(adj_list, other_vertex, visited, curr_dfs_stack):
+                return True
+            end if
+        end if
+
+        else if other_vertex in curr_dfs_stack:
+            return True
+        end else
+    end for
+
+    remove vertex from curr_dfs_stack
+
+    return False
+end function
+
+function is_cycle(all_nodes, edges):
+
+    adjacency_list ← create_adj_list(all_nodes, edges)
+
+    curr_stack ← set()
+
+    visited ← set()
+
+    for vertex in range(all_nodes):
+        if vertex not in visited:
+            if cycle_detection(adjacency_list, vertex, visited, curr_stack):
+                return "Loop detected"
+            end if
+        end if
+    end for
+
+    return "No loop detected"
+end function
+
